@@ -16,19 +16,20 @@ public class Categoria{
 	private Long id;
     private String nombre;
     
-    public Categoria() {
-		// this form used by Hibernate
+   public Categoria() {
+
 	}
 
-	public Categoria(String nombre) {
-		// for application use, to create new events
+	public Categoria(long id, String nombre) {
+
+		this.id =id;
 		this.nombre = nombre;
 	}
     
 
 	@Id
-	//@GeneratedValue(generator="increment")
-	//@GenericGenerator(name="increment", strategy = "increment")
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
     public Long getId() {
 		return id;
     }
