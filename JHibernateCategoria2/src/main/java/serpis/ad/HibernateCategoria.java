@@ -17,6 +17,8 @@ public class HibernateCategoria {
 
 		insertCategorias();				
 		showCategorias();
+		updateCategorias();
+		deleteCategorias();
 		
 		entityManagerFactory.close();
 	}
@@ -28,7 +30,7 @@ public class HibernateCategoria {
 		
         List<Categoria> result = entityManager.createQuery( "from Categoria", Categoria.class ).getResultList();
 		for ( Categoria cate : result ) {
-			System.out.println( "Categoria: " + cate.getNombre() );
+			System.out.println( "Categoria: " + cate.getNombre() + ", id: " + cate.getId());
 		}
 		
         entityManager.getTransaction().commit();
@@ -44,7 +46,7 @@ public class HibernateCategoria {
 		entityManager.getTransaction().begin();
 		
 		Categoria categoria = new Categoria();
-		categoria.setNombre("NuevaCateHiber");
+		categoria.setNombre("NuevaCateHiber123");
 		entityManager.persist(categoria);
 		
 		entityManager.getTransaction().commit();
@@ -56,11 +58,29 @@ public class HibernateCategoria {
 	
 	public static void updateCategorias(){
 		
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Categoria categoria = entityManager.find(Categoria.class,1);
+		categoria.setNombre("Actualizada");
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		
 		
 	}
 
 	
 	public static void deleteCategorias(){
+		
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		Categoria categoria = entityManager.find(Categoria.class,1);
+		entityManager.remove(categoria);
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
 		
 		
 	}
